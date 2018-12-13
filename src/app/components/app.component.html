@@ -1,0 +1,27 @@
+<div>
+  <a href="https://go.urbanairship.com/api/channels" target="_blank">Get Input JSON</a>
+</div>
+<div [formGroup]="parserFormGroup">
+  <textarea placeholder="Paste input JSON string" [formControlName]="inputFormControlName" required></textarea>
+</div>
+<div>
+  <button (click)="onParseButtonClick()">Parse input</button>
+</div>
+<div *ngIf="message$ | async as message">
+  <span>
+    <strong>{{message}}</strong>
+  </span>
+</div>
+<div *ngIf="result$ | async as result">
+  <div>
+    ChannelId, DeviceToken
+  </div>
+  <div *ngIf="result.channels as channels">
+    <div *ngFor="let channel of channels">
+      {{channel.channelId}},{{channel.pushAddress}}
+    </div>
+  </div>
+  <div *ngIf="result.nextPageUrl as nextPageUrl">
+    <p><a [href]="nextPageUrl" target="_blank">Next page</a></p>
+  </div>
+</div>
